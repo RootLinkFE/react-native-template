@@ -3,15 +3,17 @@
 [![React Native](https://img.shields.io/badge/React%20Native-v0.66.0-green.svg)](https://facebook.github.io/react-native/)
 [![React Navigation V6](https://img.shields.io/badge/React%20Navigation-v6.0-blue.svg)](https://reactnavigation.org/)
 
+An out-of-box React Native boilerplate
+
 ## Features
 
 - [Typescript](https://www.typescriptlang.org/) support.
 - [React Hooks](https://reactjs.org/docs/hooks-intro.html)
-- [React Query](https://react-query.tanstack.com)
-- [Zustand](https://github.com/pmndrs/zustand)
+- [React Query](https://react-query.tanstack.com) Fetch, cache and update asynchronous data
+- [Zustand](https://github.com/pmndrs/zustand) state management
 - [React Navigation](https://reactnavigation.org/) with [Authentication flow](https://reactnavigation.org/docs/auth-flow) baked in & theming support.
 - [React Native Gesture Handler](https://github.com/kmagiera/react-native-gesture-handler)
-- [React Native Paper](https://callstack.github.io/react-native-paper/)- with theming support
+- [React Native Paper](https://callstack.github.io/react-native-paper/)- with theming support & UI component
 - [React Native Vector Icons](https://github.com/oblador/react-native-vector-icons)
 - [Jest](https://facebook.github.io/jest/)
 - [Eslint](http://eslint.org/) ([Airbnb config](https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb))
@@ -28,7 +30,7 @@
 
 ## Getting Started
 
-1. Clone this repo, `git clone https://github.com/victorkvarghese/react-native-zustand-boilerplate.git <your project name>`
+1. Clone this repo, `git clone https://github.com/RootLinkFE/react-native-template.git <your project name>`
 2. Go to project's root directory, `cd <your project name>`
 3. Remove `.git` folder, `rm -rf .git`
 4. Use [React Native Rename](https://github.com/junedomingo/react-native-rename) to update project name `$ npx react-native-rename <newName>`
