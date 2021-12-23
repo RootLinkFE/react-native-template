@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import { Text, Button } from 'react-native-paper';
+import { Text, Button } from 'native-base';
 
 import styles from './styles';
 import NavigationService from 'app/navigation/NavigationService';

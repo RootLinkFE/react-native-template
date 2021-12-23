@@ -1,40 +1,36 @@
-import {
-  DarkTheme as PaperDarkTheme,
-  DefaultTheme as PaperDefaultTheme,
-} from 'react-native-paper';
+import { extendTheme } from 'native-base';
+
 import {
   DefaultTheme as NavigationDefaultTheme,
   DarkTheme as NavigationDarkTheme,
 } from '@react-navigation/native';
 
-export const PaperThemeDefault = {
-  ...PaperDefaultTheme,
-  colors: {
-    ...PaperDefaultTheme.colors,
-    primary: '#3498db',
-  },
-};
+export { NavigationDarkTheme, NavigationDefaultTheme };
 
-export const PaperThemeDark = {
-  ...PaperDarkTheme,
+const theme = extendTheme({
   colors: {
-    ...PaperDarkTheme.colors,
-    primary: '#3498db',
+    // Add new color
+    primary: {
+      50: '#E3F2F9',
+      100: '#C5E4F3',
+      200: '#A2D4EC',
+      300: '#7AC1E4',
+      400: '#47A9DA',
+      500: '#0088CC',
+      600: '#007AB8',
+      700: '#006BA1',
+      800: '#005885',
+      900: '#003F5E',
+    },
+    // Redefinig only one shade, rest of the color will remain same.
+    amber: {
+      400: '#d97706',
+    },
   },
-};
-
-export const CombinedDefaultTheme = {
-  ...PaperDefaultTheme,
-  ...NavigationDefaultTheme,
-};
-
-export const CombinedDarkTheme = {
-  ...PaperDarkTheme,
-  ...NavigationDarkTheme,
-  colors: {
-    ...NavigationDarkTheme.colors,
-    background: '#303030',
-    card: '#222222',
-    text: '#ffffff',
+  config: {
+    // Changing initialColorMode to 'dark'
+    initialColorMode: 'light',
   },
-};
+});
+
+export default theme;

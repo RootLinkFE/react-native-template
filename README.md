@@ -13,7 +13,7 @@ An out-of-box React Native boilerplate
 - [Zustand](https://github.com/pmndrs/zustand) state management
 - [React Navigation](https://reactnavigation.org/) with [Authentication flow](https://reactnavigation.org/docs/auth-flow) baked in & theming support.
 - [React Native Gesture Handler](https://github.com/kmagiera/react-native-gesture-handler)
-- [React Native Paper](https://callstack.github.io/react-native-paper/)- with theming support & UI component
+- [NativeBase](https://github.com/GeekyAnts/nativebase/)- with theming support & UI component
 - [React Native Vector Icons](https://github.com/oblador/react-native-vector-icons)
 - [Jest](https://facebook.github.io/jest/)
 - [Eslint](http://eslint.org/) ([Airbnb config](https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb))

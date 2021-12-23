@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { Switch } from 'react-native-paper';
+import { Switch } from 'native-base';
 import { useStore } from '../store';
 
 const ThemeController: React.FC = () => {

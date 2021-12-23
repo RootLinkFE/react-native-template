@@ -1,4 +1,5 @@
 {
   "name": "RNZustandBoilerPlate",
-  "displayName": "RNZustandBoilerPlate"
+  "displayName": "RNZustandBoilerPlate",
+  "sourceExts": ["js", "jsx", "svg", "ts", "tsx"]
 }

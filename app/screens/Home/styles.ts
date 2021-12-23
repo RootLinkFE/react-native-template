@@ -4,10 +4,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  list: {
+    padding: 16,
+  },
   card: {
     margin: 4,
+    boxShadow: 1,
   },
-  content: { flexDirection: 'row', justifyContent: 'space-between' },
+  boxWrap: {
+    flex: 1,
+    justifyContent: 'space-between',
+  },
 });
 
 export default styles;
