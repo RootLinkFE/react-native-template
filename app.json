@@ -1,5 +1,5 @@
 {
-  "name": "RNZustandBoilerPlate",
-  "displayName": "RNZustandBoilerPlate",
+  "name": "RootHubApp",
+  "displayName": "RootHub App",
   "sourceExts": ["js", "jsx", "svg", "ts", "tsx"]
 }
