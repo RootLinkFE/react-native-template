@@ -1,4 +1,5 @@
-import { Box, HStack, Icon, IconButton, StatusBar, Text } from 'native-base';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { Box, HStack, IconButton, StatusBar, Text } from 'native-base';
 import React from 'react';
 
 function AppBar({ onLogOut = () => {} }) {
@@ -22,7 +23,7 @@ function AppBar({ onLogOut = () => {} }) {
         <HStack space="2">
           <IconButton
             onPress={onLogOut}
-            icon={<Icon color="white" size="sm" name="home" />}
+            icon={<Icon color="white" size={18} name="logout" />}
           />
         </HStack>
       </HStack>

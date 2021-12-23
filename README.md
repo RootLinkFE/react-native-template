@@ -14,7 +14,7 @@ An out-of-box React Native boilerplate
 - [React Navigation](https://reactnavigation.org/) with [Authentication flow](https://reactnavigation.org/docs/auth-flow) baked in & theming support.
 - [React Native Gesture Handler](https://github.com/kmagiera/react-native-gesture-handler)
 - [NativeBase](https://github.com/GeekyAnts/nativebase/)- with theming support & UI component
-- [React Native Vector Icons](https://github.com/oblador/react-native-vector-icons)
+- [React Native Vector Icons](https://github.com/oblador/react-native-vector-icons) Icons
 - [Jest](https://facebook.github.io/jest/)
 - [Eslint](http://eslint.org/) ([Airbnb config](https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb))
 

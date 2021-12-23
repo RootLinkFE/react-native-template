@@ -1,10 +1,10 @@
-import React from 'react';
-import { View } from 'react-native';
-import { Text, Button } from 'native-base';
-
-import styles from './styles';
 import NavigationService from 'app/navigation/NavigationService';
 import { useStore } from 'app/store';
+import { Button, Text } from 'native-base';
+import React from 'react';
+import { View } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import styles from './styles';
 
 const Login: React.FC = () => {
   const setIsLoggedIn = useStore(state => state.setIsLoggedIn);
@@ -17,14 +17,12 @@ const Login: React.FC = () => {
     <View style={styles.container}>
       <View style={styles.container}>
         <Text style={styles.login}>Login Status </Text>
-        <Button icon="login" mode="outlined" onPress={onLogin}>
+        <Button
+          leftIcon={<Icon name="login" color="white" />}
+          onPress={onLogin}>
           Login
         </Button>
-        <Button
-          mode="text"
-          style={styles.forgot}
-          labelStyle={styles.labelStyle}
-          onPress={onForgot}>
+        <Button style={styles.forgot} onPress={onForgot}>
           Forgot Password
         </Button>
       </View>
