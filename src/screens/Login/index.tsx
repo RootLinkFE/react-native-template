@@ -1,5 +1,5 @@
-import NavigationService from 'app/navigation/NavigationService';
-import { useStore } from 'app/store';
+import NavigationService from 'src/navigation/NavigationService';
+import { useStore } from 'src/store';
 import { Button, Text } from 'native-base';
 import React from 'react';
 import { View } from 'react-native';

@@ -39,18 +39,18 @@
     /* Module Resolution Options */
     "moduleResolution": "node" /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */,
     "baseUrl": "./",
-    "typeRoots": ["node_modules/@types", "./app/**"],
+    "typeRoots": ["node_modules/@types", "src/**"],
     "paths": {
-      "app/assets/*": ["./app/assets/*"],
-      "app/components/*": ["./app/components/*"],
-      "app/config/*": ["./app/config/*"],
-      "app/lib/*": ["./app/lib/*"],
-      "app/models/*": ["./app/models/*"],
-      "app/navigation/*": ["./app/navigation/*"],
-      "app/screens/*": ["./app/screens/*"],
-      "app/services/*": ["./app/services/*"],
-      "app/store/*": ["./app/store/*"],
-      "app/utils/*": ["./app/utils/*"]
+      "src/assets/*": ["src/assets/*"],
+      "src/components/*": ["src/components/*"],
+      "src/config/*": ["src/config/*"],
+      "src/lib/*": ["src/lib/*"],
+      "src/models/*": ["src/models/*"],
+      "src/navigation/*": ["src/navigation/*"],
+      "src/screens/*": ["src/screens/*"],
+      "src/services/*": ["src/services/*"],
+      "src/store/*": ["src/store/*"],
+      "src/utils/*": ["src/utils/*"]
     },
     // "rootDirs": [],                        /* List of root folders whose combined content represents the structure of the project at runtime. */
     // "types": [],                           /* Type declaration files to be included in compilation. */

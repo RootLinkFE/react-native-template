@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query';
 import { AxiosResponse } from 'axios';
-import { ApiService } from 'app/services/ApiService';
-// import { useStore } from 'app/store';
+import { ApiService } from 'src/services/ApiService';
+// import { useStore } from 'src/store';
 
 /**
  *

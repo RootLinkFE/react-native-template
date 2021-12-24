@@ -15,7 +15,7 @@
     "prettier": "prettier --check src/**/*.tsx --write",
     "postinstall": "npx husky install",
     "commit": "git-cz",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx app/"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx src/"
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.12.1",

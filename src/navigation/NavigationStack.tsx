@@ -4,9 +4,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import { navigationRef } from './NavigationService';
 
-import Login from 'app/screens/Login';
-import Home from 'app/screens/Home';
-import ForgotPassword from 'app/screens/ForgotPassword';
+import Login from 'src/screens/Login';
+import Home from 'src/screens/Home';
+import ForgotPassword from 'src/screens/ForgotPassword';
 
 import ThemeController from '../components/ThemeController';
 import { StatusBar } from 'react-native';

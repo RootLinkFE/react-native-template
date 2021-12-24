@@ -9,12 +9,12 @@
 
 - [Typescript](https://www.typescriptlang.org/) 支持
 - [React Hooks](https://reactjs.org/docs/hooks-intro.html)
-- [React Query](https://react-query.tanstack.com) 异步请求&缓存
+- [React Query](https://react-query.tanstack.com) 管理异步请求数据状态&缓存 🚀
 - [Zustand](https://github.com/pmndrs/zustand) 状态管理
 - [React Navigation](https://reactnavigation.org/) 支持 [Authentication flow（身份验证流程）](https://reactnavigation.org/docs/auth-flow)和主题
 - [React Native Gesture Handler](https://github.com/kmagiera/react-native-gesture-handler)
 - [NativeBase](https://github.com/GeekyAnts/nativebase/) UI 组件库
-- [React Native Vector Icons](https://github.com/oblador/react-native-vector-icons) Icons 神器
+- [React Native Vector Icons](https://github.com/oblador/react-native-vector-icons) Icons
 - [Jest](https://facebook.github.io/jest/)
 - [Eslint](http://eslint.org/) ([Airbnb config](https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb))
 
@@ -24,7 +24,7 @@
   
 ## Prerequisites
 
-- [Node](https://nodejs.org) v10
+- [Node](https://nodejs.org) v12+
 - [Yarn](https://yarnpkg.com/)
 - 更多看[官方环境介绍](https://facebook.github.io/react-native/docs/getting-started.html)
 
@@ -45,6 +45,8 @@
   - 执行`yarn ios` 使用 Xcode `ios/YourReactProject.xcworkspace`打开，点击 `Run`
 
 9. 完毕!!!
+
+更多查看 [更多文档](./doc.md)
 
 ## Contributing
 

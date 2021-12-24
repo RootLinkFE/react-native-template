@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 import { apiClient } from './client';
 
 export class ApiService {
-  config?: AxiosRequestConfig = {};
+  config: AxiosRequestConfig = {};
 
   private cancellationToken = axios.CancelToken.source();
 
@@ -17,6 +17,10 @@ export class ApiService {
     this.cancellationToken.cancel('RequestCancellation');
     return ApiService.createInstance();
   }
+
+  get = (endpoint: string, params: any) => {
+    return apiClient.get(endpoint);
+  };
 
   getCharacters = () => {
     return apiClient.get('/character');

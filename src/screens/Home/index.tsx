@@ -1,6 +1,6 @@
-import AppBar from 'app/components/AppBar';
-import { GetUserDetails } from 'app/services/react-query/queries/user';
-import { useStore } from 'app/store';
+import AppBar from 'src/components/AppBar';
+import { GetUserDetails } from 'src/services/react-query/queries/user';
+import { useStore } from 'src/store';
 import { VStack, Box, HStack, Divider, Image, Text } from 'native-base';
 import React from 'react';
 import { FlatList, RefreshControl, View } from 'react-native';
