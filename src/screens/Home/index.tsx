@@ -8,7 +8,11 @@ import styles from './styles';
 
 const Home: React.FC = () => {
   const setIsLoggedIn = useStore(state => state.setIsLoggedIn);
-  const { isLoading, isFetching, data = { results: [] } } = GetUserDetails();
+  const {
+    isLoading,
+    isFetching,
+    data = { results: [] },
+  }: any = GetUserDetails();
 
   const onLogOut = () => {
     setIsLoggedIn(false);

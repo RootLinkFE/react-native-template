@@ -1499,6 +1499,13 @@
     "@react-aria/ssr" "^3.0.1"
     "@react-aria/utils" "^3.3.0"
 
+"@react-native-async-storage/async-storage@^1.15.14":
+  version "1.15.14"
+  resolved "https://registry.npmmirror.com/@react-native-async-storage/async-storage/download/@react-native-async-storage/async-storage-1.15.14.tgz#8165d3f78798b46e693169795b62e40142064273"
+  integrity sha512-eJF2horabXazwszCyyXDe4w7sBSWlB0WPA8akKXuN2n7WXKHYeQJPN41lS9OahrhSZuZwqftNFE9VWgPXA8wyA==
+  dependencies:
+    merge-options "^3.0.4"
+
 "@react-native-community/async-storage@^1.12.1":
   version "1.12.1"
   resolved "https://registry.npmmirror.com/@react-native-community/async-storage/download/@react-native-community/async-storage-1.12.1.tgz#25f821b4f6b13abe005ad67e47c6f1cee9f27b24"
@@ -2159,13 +2166,6 @@
   version "0.0.29"
   resolved "https://registry.nlark.com/@types/json5/download/@types/json5-0.0.29.tgz#ee28707ae94e11d2b827bcbe5270bcea7f3e71ee"
   integrity sha1-7ihweulOEdK4J7y+UnC86n8+ce4=
-
-"@types/lodash-es@^4.17.5":
-  version "4.17.5"
-  resolved "https://registry.npmmirror.com/@types/lodash-es/download/@types/lodash-es-4.17.5.tgz?cache=0&sync_timestamp=1637268491938&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2F%40types%2Flodash-es%2Fdownload%2F%40types%2Flodash-es-4.17.5.tgz#1c3fdd16849d84aea43890b1c60da379fb501353"
-  integrity sha1-HD/dFoSdhK6kOJCxxg2jeftQE1M=
-  dependencies:
-    "@types/lodash" "*"
 
 "@types/lodash.has@^4.5.6":
   version "4.5.6"
@@ -4996,6 +4996,11 @@ is-obj@^1.0.0:
   resolved "https://registry.nlark.com/is-obj/download/is-obj-1.0.1.tgz#3e4729ac1f5fde025cd7d83a896dab9f4f67db0f"
   integrity sha1-PkcprB9f3gJc19g6iW2rn09n2w8=
 
+is-plain-obj@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.nlark.com/is-plain-obj/download/is-plain-obj-2.1.0.tgz?cache=0&sync_timestamp=1631633065540&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fis-plain-obj%2Fdownload%2Fis-plain-obj-2.1.0.tgz#45e42e37fccf1f40da8e5f76ee21515840c09287"
+  integrity sha1-ReQuN/zPH0Dajl927iFRWEDAkoc=
+
 is-plain-object@^2.0.3, is-plain-object@^2.0.4:
   version "2.0.4"
   resolved "https://registry.nlark.com/is-plain-object/download/is-plain-object-2.0.4.tgz#2c163b3fafb1b606d9d17928f05c2a1c38e07677"
@@ -5982,6 +5987,13 @@ mdn-data@2.0.14:
   version "2.0.14"
   resolved "https://registry.npmmirror.com/mdn-data/download/mdn-data-2.0.14.tgz#7113fc4281917d63ce29b43446f701e68c25ba50"
   integrity sha1-cRP8QoGRfWPOKbQ0RvcB5owlulA=
+
+merge-options@^3.0.4:
+  version "3.0.4"
+  resolved "https://registry.nlark.com/merge-options/download/merge-options-3.0.4.tgz#84709c2aa2a4b24c1981f66c179fe5565cc6dbb7"
+  integrity sha1-hHCcKqKkskwZgfZsF5/lVlzG27c=
+  dependencies:
+    is-plain-obj "^2.1.0"
 
 merge-stream@^2.0.0:
   version "2.0.0"

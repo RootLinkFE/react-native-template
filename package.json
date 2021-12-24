@@ -18,6 +18,7 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx src/"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.15.14",
     "@react-native-community/async-storage": "^1.12.1",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-navigation/native": "^6.0.4",

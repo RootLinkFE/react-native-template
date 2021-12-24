@@ -10,6 +10,7 @@
 - [Typescript](https://www.typescriptlang.org/) 支持
 - [React Hooks](https://reactjs.org/docs/hooks-intro.html)
 - [React Query](https://react-query.tanstack.com) 管理异步请求数据状态&缓存 🚀
+- Swagger Api 自动生成，结合 react-query 使用
 - [Zustand](https://github.com/pmndrs/zustand) 状态管理
 - [React Navigation](https://reactnavigation.org/) 支持 [Authentication flow（身份验证流程）](https://reactnavigation.org/docs/auth-flow)和主题
 - [React Native Gesture Handler](https://github.com/kmagiera/react-native-gesture-handler)
