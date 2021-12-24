@@ -3,18 +3,18 @@
 [![React Native](https://img.shields.io/badge/React%20Native-v0.66.0-green.svg)](https://facebook.github.io/react-native/)
 [![React Navigation V6](https://img.shields.io/badge/React%20Navigation-v6.0-blue.svg)](https://reactnavigation.org/)
 
-An out-of-box React Native boilerplate
+一个开箱即用的 React Native 工程脚手架
 
 ## Features
 
-- [Typescript](https://www.typescriptlang.org/) support.
+- [Typescript](https://www.typescriptlang.org/) 支持
 - [React Hooks](https://reactjs.org/docs/hooks-intro.html)
-- [React Query](https://react-query.tanstack.com) Fetch, cache and update asynchronous data
-- [Zustand](https://github.com/pmndrs/zustand) state management
-- [React Navigation](https://reactnavigation.org/) with [Authentication flow](https://reactnavigation.org/docs/auth-flow) baked in & theming support.
+- [React Query](https://react-query.tanstack.com) 异步请求&缓存
+- [Zustand](https://github.com/pmndrs/zustand) 状态管理
+- [React Navigation](https://reactnavigation.org/) 支持 [Authentication flow（身份验证流程）](https://reactnavigation.org/docs/auth-flow)和主题
 - [React Native Gesture Handler](https://github.com/kmagiera/react-native-gesture-handler)
-- [NativeBase](https://github.com/GeekyAnts/nativebase/)- with theming support & UI component
-- [React Native Vector Icons](https://github.com/oblador/react-native-vector-icons) Icons
+- [NativeBase](https://github.com/GeekyAnts/nativebase/) UI 组件库
+- [React Native Vector Icons](https://github.com/oblador/react-native-vector-icons) Icons 神器
 - [Jest](https://facebook.github.io/jest/)
 - [Eslint](http://eslint.org/) ([Airbnb config](https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb))
 
@@ -24,30 +24,28 @@ An out-of-box React Native boilerplate
   
 ## Prerequisites
 
-- [Node](https://nodejs.org) v10 (it is recommended to install it via [NVM](https://github.com/creationix/nvm))
+- [Node](https://nodejs.org) v10
 - [Yarn](https://yarnpkg.com/)
-- A development machine set up for React Native by following [these instructions](https://facebook.github.io/react-native/docs/getting-started.html)
+- 更多看[官方环境介绍](https://facebook.github.io/react-native/docs/getting-started.html)
 
 ## Getting Started
 
-1. Clone this repo, `git clone https://github.com/RootLinkFE/react-native-template.git <your project name>`
-2. Go to project's root directory, `cd <your project name>`
-3. Remove `.git` folder, `rm -rf .git`
-4. Use [React Native Rename](https://github.com/junedomingo/react-native-rename) to update project name `$ npx react-native-rename <newName>`
-5. Run `yarn` to install dependencies
-
-6. Start the packager with `yarn start`
-7. Connect a mobile device to your development machine
-8. Run the test application:
+1. 克隆项目, `git clone https://github.com/RootLinkFE/react-native-template.git <your project name>`
+2. 切换到项目根目录, `cd <your project name>`
+3. 删除 `.git` 文件夹, `rm -rf .git`
+4. 使用插件 [React Native Rename](https://github.com/junedomingo/react-native-rename) 重命名项目名称 `$ npx react-native-rename <newName>`，也可以快速修改 bundleId
+5. 执行 `yarn` 安装依赖
+6. 如果是 ios，执行 `yarn pod`
+7. 执行 `yarn start` 启动 packager
+8. 链接你的手机（或者虚拟机启动）
 
 - On Android:
-  - Run `react-native run-android` or Use Android Studio (Recommended)
+  - 执行 `yarn android` 或 在 Android Studio 中启动
 - On iOS:
-  - Open `ios/YourReactProject.xcworkspace` in Xcode
-  - Hit `Run` after selecting the desired device
+  - 执行`yarn ios` 使用 Xcode `ios/YourReactProject.xcworkspace`打开，点击 `Run`
 
-9. Enjoy!!!
+9. 完毕!!!
 
 ## Contributing
 
-PRs are welcome
+欢迎 PR 共建

@@ -2,6 +2,8 @@ apply plugin: "com.android.application"
 
 import com.android.build.OutputFile
 
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
+
 /**
  * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
  * and bundleReleaseJsAndAssets).
@@ -141,8 +143,8 @@ android {
         applicationId "com.leekhub.roothubapp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode generateVersionCode()
+        versionName generateVersionName()
     }
     splits {
         abi {
@@ -175,6 +177,12 @@ android {
             signingConfig signingConfigs.debug
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+
+            applicationVariants.all { variant ->
+                variant.outputs.all {
+                    outputFileName = "${project.env.get("APP_DISPLAY_NAME")}-v${variant.versionName}.apk"
+                }
+            }
         }
     }
 
@@ -193,6 +201,22 @@ android {
 
         }
     }
+}
+
+
+/**
+ * Internal version number generator
+ * Refer https://developer.android.com/google/play/publishing/multiple-apks.html#using-a-version-code-scheme
+*/
+private Integer generateVersionCode() {
+  return project.env.get("VERSION_CODE").toInteger();
+}
+
+/**
+ * Internal version name generator
+*/
+private String generateVersionName() {
+   return project.env.get("VERSION_NAME");
 }
 
 dependencies {

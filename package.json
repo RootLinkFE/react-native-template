@@ -3,12 +3,19 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
-    "ios": "react-native run-ios",
-    "start": "react-native start",
+    "android": "ENVFILE=.env.dev react-native run-android",
+    "android:staging": "cd ./android && ENVFILE=.env.staging ./gradlew app:assembleRelease",
+    "android:prod": "cd ./android && ENVFILE=.env.prod ./gradlew app:assembleRelease",
+    "ios": "ENVFILE=.env.dev react-native run-ios",
+    "ios:staging": "ENVFILE=.env.staging react-native run-ios",
+    "ios:prod": "ENVFILE=.env.prod react-native run-ios",
+    "start": "watchman watch-del-all && react-native start --reset-cache",
+    "pod": "cd ios && pod install --repo-update && cd ..",
     "test": "jest",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "update:pods": "npx pod-install ios"
+    "prettier": "prettier --check src/**/*.tsx --write",
+    "postinstall": "npx husky install",
+    "commit": "git-cz",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx app/"
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.12.1",
@@ -16,9 +23,11 @@
     "@react-navigation/native": "^6.0.4",
     "@react-navigation/stack": "^6.0.9",
     "axios": "^0.22.0",
+    "lodash": "^4.17.21",
     "native-base": "^3.2.2",
     "react": "17.0.2",
     "react-native": "0.66.0",
+    "react-native-config": "^1.4.5",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-reanimated": "^2.3.0-beta.2",
     "react-native-safe-area-context": "^3.3.2",
@@ -33,14 +42,29 @@
     "@babel/runtime": "^7.12.5",
     "@react-native-community/eslint-config": "^2.0.0",
     "@types/jest": "^26.0.23",
+    "@types/lodash": "^4.14.178",
     "@types/react-native": "^0.65.0",
     "@types/react-native-vector-icons": "^6.4.9",
     "@types/react-test-renderer": "^17.0.1",
     "babel-jest": "^26.6.3",
+    "babel-plugin-import": "^1.13.3",
     "babel-plugin-module-resolver": "^4.1.0",
-    "eslint": "^7.14.0",
+    "babel-plugin-transform-remove-console": "^6.9.4",
+    "commitizen": "^4.2.4",
+    "cz-customizable": "^6.3.0",
+    "eslint": "^8.3.0",
+    "eslint-config-prettier": "^8.0.0",
+    "eslint-import-resolver-typescript": "^2.5.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.27.1",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "eslint-plugin-react-native": "^3.11.0",
+    "eslint-plugin-replace-hooks": "^1.0.3",
+    "husky": "^7.0.4",
     "jest": "^26.6.3",
     "metro-react-native-babel-preset": "^0.66.2",
+    "prettier": "^2.5.0",
     "react-test-renderer": "17.0.2",
     "typescript": "^3.8.3"
   },
@@ -56,6 +80,17 @@
       "jsx",
       "json",
       "node"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-customizable"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,ts,tsx}": [
+      "npm run eslint",
+      "npm run prettier"
     ]
   }
 }
