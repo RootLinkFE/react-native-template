@@ -1,5 +1,5 @@
 import AppBar from 'src/components/AppBar';
-import { GetUserDetails } from 'src/services/react-query/queries/user';
+import { GetUserDetails } from 'src/services/queries/user';
 import { useStore } from 'src/store';
 import { VStack, Box, HStack, Divider, Image, Text } from 'native-base';
 import React from 'react';

@@ -8,7 +8,7 @@ import { QueryClientProvider } from 'react-query';
 import theme, { NavigationDefaultTheme } from 'src/config/theme-config';
 import Navigator from 'src/navigation';
 import { useStore } from './store';
-import { RNQueryClient } from './services/react-query/query-client';
+import { RNQueryClient } from './services/query-client';
 
 const EntryPoint: React.FC = () => {
   const isDark = useStore(state => state.isDarkMode);

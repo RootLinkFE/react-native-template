@@ -45,7 +45,7 @@
       "src/components/*": ["src/components/*"],
       "src/config/*": ["src/config/*"],
       "src/lib/*": ["src/lib/*"],
-      "src/models/*": ["src/models/*"],
+      "src/rh/*": ["src/rh/*"],
       "src/navigation/*": ["src/navigation/*"],
       "src/screens/*": ["src/screens/*"],
       "src/services/*": ["src/services/*"],

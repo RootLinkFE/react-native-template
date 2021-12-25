@@ -29,6 +29,24 @@
 - [Yarn](https://yarnpkg.com/)
 - 更多看[官方环境介绍](https://facebook.github.io/react-native/docs/getting-started.html)
 
+## Folder structure
+
+```shell
+├── src
+    ├── assets          # 本地静态资源
+    ├── components      # 业务通用组件
+    ├── config          # 配置,包含icon,styles等
+    ├── hooks           # hooks
+    ├── lib             # 封装工具类lib，或第三方lib，区别于utils
+    ├── navigation      # 路由导航
+    ├── rh              # @roothub/cli api 生成文件夹，包含网络请求和生成的接口定义类
+    ├── screens         # 业务页面
+    ├── services        # 服务封装，auth 或 react-query等
+    ├── store           # zustand 状态管理文件
+    └── utils           # 工具函数库，通用函数
+
+```
+
 ## Getting Started
 
 1. 克隆项目, `git clone https://github.com/RootLinkFE/react-native-template.git <your project name>`

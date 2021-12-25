@@ -201,7 +201,7 @@ export class HttpClient<SecurityDataType = unknown> {
    * @param
    * @returns Promise<T>
    */
-  public request = async ({
+  public request = async <T = any, _E = any>({
     secure,
     path,
     type,
@@ -210,9 +210,6 @@ export class HttpClient<SecurityDataType = unknown> {
     body,
     ...params
   }: FullRequestParams): Promise<any> => {
-    console.log('====================================');
-    console.log(isMockMode);
-    console.log('====================================');
     // 校验token
     const token = await getToken();
     const { accessToken = '', refreshToken, tokenExpireTime } = token;
