@@ -5,28 +5,20 @@ import type {
   ResponseType,
 } from 'axios';
 import axios from 'axios';
+import { isEmpty } from 'lodash';
 import { Toast } from 'native-base';
-import Config from 'react-native-config';
+import dayjs from 'dayjs';
 import { RhStorage } from 'src/lib/index';
-
-const baseURL = Config['BASE_URL'];
-
-export const USER_INFO_KEY = '_rh_userAuthInfo';
-export const TOKEN_KEY = '_rh_token';
-
-// request
-export const REQ_RESEND_MAX_COUNT = 1;
-export const REQ_RESEND_COUNT_EXCEED_CODE = 4000001;
-export const REQ_RESEND_COUNT_EXCEED_MSG = '重发次数超出上限';
-export const REQ_OVERTIME_DURATION = 10 * 1000;
-export const RES_SUCCESS_DEFAULT_CODE = 2000; // 处理成功
-export const RES_NOT_FOUND_CODE = 3000; // 处理失败
-export const RES_UNAUTHORIZED_CODE = 4010; // token过期
-export const RES_PERMISSION_DENIED_CODE = 4100; // 权限不足
-export const RES_INVALID_PARAMS_CODE = 4000; // 参数错误
-export const RES_SECRET_INCORRECT_CODE = 4200; // 秘钥错误
-export const RES_SERVER_EXCEPTION_CODE = 5000; // 服务器异常
-export const ERR_MESSAGE_SHOW_DURATION = 3000;
+import { getToken, saveToken, signOut } from 'src/services/auth';
+import {
+  baseURL,
+  ERR_MESSAGE_SHOW_DURATION,
+  isMockMode,
+  RES_PERMISSION_DENIED_CODE,
+  RES_SUCCESS_DEFAULT_CODE,
+  RES_UNAUTHORIZED_CODE,
+  TOKEN_KEY,
+} from '../constant';
 
 export type QueryParamsType = Record<string | number, any>;
 
@@ -66,51 +58,7 @@ export enum ContentType {
   UrlEncoded = 'application/x-www-form-urlencoded',
 }
 
-export interface IUserAuthInfo {
-  expiredIn?: number;
-  firstLogin?: boolean;
-  token?: string;
-}
-
-export const setUserAuthInfo = (token: IUserAuthInfo) => {
-  let tokenStr = '';
-  try {
-    tokenStr = JSON.stringify(token);
-  } catch (e) {
-    // eslint-disable-next-line no-console
-    console.error(e);
-  }
-  RhStorage.setItem(USER_INFO_KEY, tokenStr);
-  return token;
-};
-
-export const getUserAuthInfo = async (): Promise<IUserAuthInfo> => {
-  const authInfoStr = await RhStorage.getItem(USER_INFO_KEY);
-  let authInfo: IUserAuthInfo = {};
-
-  if (!authInfoStr) return authInfo;
-
-  try {
-    authInfo = JSON.parse(authInfoStr);
-  } catch (e) {
-    // eslint-disable-next-line no-console
-    console.error(e);
-  }
-
-  return authInfo;
-};
-
-const HOURS = 60 * 60 * 1000;
-const DAY = 24 * HOURS;
-const WEEK = 7 * DAY;
-const RefreshTokenUrl = '/api/base/user/refreshToken';
-
-const goLogin = () => {
-  /*  if (window.location.pathname !== '/user/login') {
-    window.location.replace('/user/login');
-  } */
-};
-
+const goLogin = () => {};
 export class HttpClient<SecurityDataType = unknown> {
   private instance: AxiosInstance;
   private securityData: SecurityDataType | null = null;
@@ -138,8 +86,12 @@ export class HttpClient<SecurityDataType = unknown> {
 
     this.cancellationToken = axios.CancelToken.source();
     this.config.cancelToken = this.cancellationToken.token;
-
-    // request interceptor
+    this.interceptRequestConfig();
+  }
+  /**
+   * 请求和响应拦截
+   */
+  private interceptRequestConfig() {
     this.instance.interceptors.request.use(
       async (config: any) => {
         const token = await RhStorage.getItem(TOKEN_KEY);
@@ -164,70 +116,15 @@ export class HttpClient<SecurityDataType = unknown> {
           return res;
         }
 
-        // 设置responseType='blob'后，后端就算是返回json也会被当成blob
-        if (response.data instanceof Blob) {
-          // 有这个header代表是真正的blob流
-          if (response.headers['content-disposition']) {
-            // downloadBlob(response);
-            return response.data;
-          }
-
-          // 尝试解析JSON
-          // RN 这里没必要
-          try {
-            const reader = new FileReader();
-            reader.readAsText(response.data, 'utf-8');
-            const data = await new Promise((resolve, reject) => {
-              reader.onload = () => {
-                try {
-                  resolve(JSON.parse(reader.result as string));
-                } catch (error) {
-                  reject(error);
-                }
-              };
-            });
-
-            res = data;
-          } catch (error) {
-            Toast.show({
-              title: '数据解析异常',
-              status: 'error',
-              duration: ERR_MESSAGE_SHOW_DURATION,
-            });
-            return Promise.reject();
-          }
-        }
-
-        // if the custom code is not 2000, it is judged as an error.
         if (res.code !== RES_SUCCESS_DEFAULT_CODE) {
-          if (res.code === RES_UNAUTHORIZED_CODE) {
-            Toast.show({
-              title: '提示',
-              status: 'info',
-              description: '您已经登出，您可以取消以停留在此页面，或再次登录',
-              duration: ERR_MESSAGE_SHOW_DURATION,
-            });
-            setTimeout(() => {
-              this.logout();
-            }, 2000);
-          } else if (res.code === RES_PERMISSION_DENIED_CODE) {
-            // token不存在,请重新登录账户
-            setTimeout(() => {
-              this.logout();
-            }, 1500);
-          }
-          Toast.show({
-            title: '提示',
-            status: 'error',
-            description: res.desc || res.message,
-            duration: ERR_MESSAGE_SHOW_DURATION,
-          });
-          // return new Error(res.desc || res.message || 'Error');
-          return Promise.reject(res.desc || res.message || 'Error');
+          return this.errorHandler(res);
         }
+
+        // 列表分页
         if (res.number && res.size) {
           return res;
         }
+
         return res.data;
       },
       error => {
@@ -244,8 +141,10 @@ export class HttpClient<SecurityDataType = unknown> {
   }
 
   private logout() {
-    setUserAuthInfo({});
-    goLogin();
+    signOut();
+    setTimeout(() => {
+      goLogin();
+    }, 1500);
   }
 
   private mergeRequestParams(
@@ -264,12 +163,29 @@ export class HttpClient<SecurityDataType = unknown> {
     };
   }
 
-  private refreshToken = () => {
-    return this.instance.request({
-      url: RefreshTokenUrl,
-      method: 'GET',
+  private errorHandler(res: any) {
+    // 如果接口返回不是成功编码
+    if (res.code === RES_UNAUTHORIZED_CODE) {
+      Toast.show({
+        title: '提示',
+        status: 'info',
+        description: '您已经登出，您可以取消以停留在此页面，或再次登录',
+        duration: ERR_MESSAGE_SHOW_DURATION,
+      });
+      this.logout();
+    } else if (res.code === RES_PERMISSION_DENIED_CODE) {
+      // token不存在,请重新登录账户
+      this.logout();
+    }
+    Toast.show({
+      title: '提示',
+      status: 'error',
+      description: res.desc || res.message,
+      duration: ERR_MESSAGE_SHOW_DURATION,
     });
-  };
+
+    return Promise.reject(res.desc || res.message || 'Error');
+  }
 
   public cancelRequests() {
     this.cancellationToken.cancel('RequestCancellation');
@@ -280,7 +196,12 @@ export class HttpClient<SecurityDataType = unknown> {
     this.securityData = data;
   };
 
-  public request = async <T = any, _E = any>({
+  /**
+   * 请求入口
+   * @param
+   * @returns Promise<T>
+   */
+  public request = async ({
     secure,
     path,
     type,
@@ -288,19 +209,25 @@ export class HttpClient<SecurityDataType = unknown> {
     format,
     body,
     ...params
-  }: FullRequestParams): Promise<T> => {
-    // check token
-    const authInfo: any = getUserAuthInfo();
-    const expireTime = authInfo?.expiredIn || 0;
-    const timeGap = new Date().getTime() - expireTime;
-    if (timeGap >= WEEK) {
-      this.logout();
-    } else if (timeGap > 6 * DAY) {
-      try {
-        const info = (await this.refreshToken()) as IUserAuthInfo;
-        setUserAuthInfo(info);
-      } catch (e) {
-        this.logout();
+  }: FullRequestParams): Promise<any> => {
+    console.log('====================================');
+    console.log(isMockMode);
+    console.log('====================================');
+    // 校验token
+    const token = await getToken();
+    const { accessToken = '', refreshToken, tokenExpireTime } = token;
+
+    if (!isMockMode) {
+      if (isEmpty(token)) {
+        return this.logout();
+      }
+      // 判断当前日期是否晚于tokenExpireTime，如果是表示token已经过期，需要用refreshToken去换一个新的token
+      if (dayjs().isAfter(dayjs(tokenExpireTime))) {
+        const result = await fetch(
+          `${baseURL}/auth/token/refresh?refreshToken=${refreshToken}`,
+        ).then(response => response.json());
+        const { data } = result;
+        saveToken(data);
       }
     }
 
@@ -312,8 +239,6 @@ export class HttpClient<SecurityDataType = unknown> {
     const requestParams = this.mergeRequestParams(params, secureParams);
     const responseFormat = format || this.format || void 0;
 
-    const token: string = await RhStorage.getItem(TOKEN_KEY);
-
     return this.instance.request({
       ...requestParams,
       headers: {
@@ -321,7 +246,7 @@ export class HttpClient<SecurityDataType = unknown> {
           ? { 'Content-Type': type }
           : {}),
         ...(requestParams.headers || {}),
-        token,
+        token: accessToken,
       },
       params: query,
       responseType: responseFormat,
