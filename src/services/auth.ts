@@ -1,4 +1,4 @@
-import { TOKEN_KEY, USER_INFO_KEY } from 'src/rh/constant';
+import { TOKEN_KEY, USER_INFO_KEY } from 'src/config/constant';
 import { RhStorage } from '../lib';
 import { removeEmpty } from '../utils/objectUtils';
 

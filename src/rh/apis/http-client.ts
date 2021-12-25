@@ -18,7 +18,7 @@ import {
   RES_SUCCESS_DEFAULT_CODE,
   RES_UNAUTHORIZED_CODE,
   TOKEN_KEY,
-} from '../constant';
+} from '../../config/constant';
 
 export type QueryParamsType = Record<string | number, any>;
 
