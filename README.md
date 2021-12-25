@@ -49,6 +49,8 @@
 
 ## Getting Started
 
+> 根目录 `.env.[environment]` 文件，代表对应环境下的环境变量配置
+
 1. 克隆项目, `git clone https://github.com/RootLinkFE/react-native-template.git <your project name>`
 2. 切换到项目根目录, `cd <your project name>`
 3. 删除 `.git` 文件夹, `rm -rf .git`
