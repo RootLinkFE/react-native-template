@@ -1,72 +1,29 @@
-import AppBar from 'src/components/AppBar';
-import { GetUserDetails } from 'src/services/queries/user';
-import { useStore } from 'src/store';
-import { VStack, Box, HStack, Divider, Image, Text } from 'native-base';
+import { Box, Divider, VStack, Button } from 'native-base';
 import React from 'react';
-import { FlatList, RefreshControl, View } from 'react-native';
-import styles from './styles';
+import NavigationService from 'src/navigation/NavigationService';
 
 const Home: React.FC = () => {
-  const setIsLoggedIn = useStore(state => state.setIsLoggedIn);
-  const {
-    isLoading,
-    isFetching,
-    data = { results: [] },
-  }: any = GetUserDetails();
-
-  const onLogOut = () => {
-    setIsLoggedIn(false);
-  };
-
-  const renderItem = ({ item }: any) => (
-    <HStack
-      direction="row"
-      mb="2.5"
-      mt="1.5"
-      rounded="lg"
-      overflow="hidden"
-      borderColor="coolGray.200"
-      borderWidth="1">
-      <Box>
-        <Image
-          source={{
-            uri: item.image,
-          }}
-          alt="item"
-          size="xl"
-        />
-      </Box>
-      <VStack space="4" divider={<Divider />} width="100%">
-        <Box px="4" pt="2">
-          <Text bold>{item.name}</Text>
+  return (
+    <Box borderX="1" borderRadius="md">
+      <VStack space="4" divider={<Divider />}>
+        <Box px="4" pt="4">
+          NativeBase
         </Box>
         <Box px="4">
-          <Text mb={1} mt={-2}>
-            Status: {item.status}
-          </Text>
-          <Text mb={1}>Species: {item.species}</Text>
-          <Text mb={1}>Gender: {item.gender}</Text>
+          NativeBase is a free and open source framework that enable developers
+          to build high-quality mobile apps using React Native iOS and Android
+          apps with a fusion of ES6.
+        </Box>
+        <Box px="4" pb="4">
+          <Button
+            onPress={() => {
+              NavigationService.navigate('Characters');
+            }}>
+            用户详情
+          </Button>
         </Box>
       </VStack>
-    </HStack>
-  );
-
-  return (
-    <View style={styles.container}>
-      <AppBar onLogOut={onLogOut} />
-      <FlatList
-        data={data.results}
-        renderItem={renderItem}
-        keyExtractor={(item: any) => item.id}
-        style={styles.list}
-        refreshControl={
-          <RefreshControl
-            refreshing={isLoading || isFetching}
-            onRefresh={() => {}}
-          />
-        }
-      />
-    </View>
+    </Box>
   );
 };
 

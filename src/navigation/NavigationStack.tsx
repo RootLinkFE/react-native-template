@@ -11,6 +11,8 @@ import ForgotPassword from 'src/screens/ForgotPassword';
 import ThemeController from '../components/ThemeController';
 import { StatusBar } from 'react-native';
 import { useStore } from '../store';
+import HomeTabs from './HomeTabs';
+import Characters from 'src/screens/Characters';
 
 const Stack = createStackNavigator();
 const AuthStack = createStackNavigator();
@@ -26,7 +28,7 @@ const AuthNavigator = () => {
   return (
     <AuthStack.Navigator>
       <Stack.Screen
-        name="Login"
+        name="登录"
         component={Login}
         options={{
           // When logging out, a pop animation feels intuitive
@@ -36,7 +38,7 @@ const AuthNavigator = () => {
         }}
       />
       <Stack.Screen
-        name="ForgotPassword"
+        name="忘记密码"
         component={ForgotPassword}
         options={{
           // When logging out, a pop animation feels intuitive
@@ -49,11 +51,9 @@ const AuthNavigator = () => {
   );
 };
 
-const LoggedInNavigator = () => (
-  <LoggedInStack.Navigator screenOptions={{ headerShown: false }}>
-    <Stack.Screen name="Home" component={Home} />
-  </LoggedInStack.Navigator>
-);
+const LoggedInNavigatorList: React.ReactNode[] = [
+  <Stack.Screen key="Characters" name="Characters" component={Characters} />,
+];
 
 const App: React.FC<IProps> = (props: IProps) => {
   const { theme } = props;
@@ -63,12 +63,15 @@ const App: React.FC<IProps> = (props: IProps) => {
     <NavigationContainer ref={navigationRef} theme={theme}>
       <StatusBar barStyle={theme.dark ? 'light-content' : 'dark-content'} />
 
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        {isLoggedIn ? (
-          <Stack.Screen name="HomeStack" component={LoggedInNavigator} />
-        ) : (
+      {isLoggedIn ? (
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Home" component={HomeTabs} />
+          {LoggedInNavigatorList.map(screenPage => screenPage)}
+        </Stack.Navigator>
+      ) : (
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen
-            name="LoginStack"
+            name="登陆页"
             component={AuthNavigator}
             options={{
               // When logging out, a pop animation feels intuitive
@@ -77,8 +80,8 @@ const App: React.FC<IProps> = (props: IProps) => {
               headerRight: () => <ThemeController />,
             }}
           />
-        )}
-      </Stack.Navigator>
+        </Stack.Navigator>
+      )}
     </NavigationContainer>
   );
 };
