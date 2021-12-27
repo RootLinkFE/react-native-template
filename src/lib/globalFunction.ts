@@ -8,19 +8,21 @@
 
 import { Toast } from 'native-base';
 
+type ToastPlacementType =
+  | 'top'
+  | 'top-right'
+  | 'top-left'
+  | 'bottom'
+  | 'bottom-left'
+  | 'bottom-right';
+
 /**
  * 全局单例toast
  */
 (global as any).$toast = (
   content: string,
   duration: number = 2000,
-  placement:
-    | 'top'
-    | 'top-right'
-    | 'top-left'
-    | 'bottom'
-    | 'bottom-left'
-    | 'bottom-right' = 'top',
+  placement: ToastPlacementType = 'top',
 ) => {
   Toast.show({
     title: content,

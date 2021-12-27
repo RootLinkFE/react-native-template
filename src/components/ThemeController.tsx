@@ -1,19 +1,31 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { Switch, useColorMode } from 'native-base';
+import React, { useMemo } from 'react';
+import { StyleSheet, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { Switch } from 'native-base';
 import { useStore } from '../store';
 
 const ThemeController: React.FC = () => {
-  const isDark = useStore(state => state.isDarkMode);
+  const { colorMode, toggleColorMode } = useColorMode();
   const toggleTheme = useStore(state => state.toggleTheme);
 
-  const iconName = isDark ? 'weather-night' : 'white-balance-sunny';
-  const iconColor = isDark ? 'white' : 'black';
+  const iconName = useMemo(() => {
+    return colorMode === 'dark' ? 'weather-night' : 'white-balance-sunny';
+  }, [colorMode]);
+
+  const iconColor = useMemo(() => {
+    return colorMode === 'dark' ? 'white' : 'orange';
+  }, [colorMode]);
 
   return (
     <View style={styles.container}>
-      <Switch value={isDark} onValueChange={toggleTheme} />
+      <Switch
+        isChecked={colorMode === 'dark'}
+        onToggle={() => {
+          const currentModeFlag = colorMode === 'dark';
+          toggleTheme(!currentModeFlag);
+          toggleColorMode();
+        }}
+      />
       <Icon name={iconName} size={20} style={styles.icon} color={iconColor} />
     </View>
   );

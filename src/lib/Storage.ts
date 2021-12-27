@@ -1,3 +1,8 @@
+/**
+ * @modify date 2021-12-27 11:22:27
+ * @desc AsyncStorage 静态方法，方便使用
+ */
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default class RhStorage {

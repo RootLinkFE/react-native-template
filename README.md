@@ -11,11 +11,11 @@
 - [React Hooks](https://reactjs.org/docs/hooks-intro.html)
 - [React Query](https://react-query.tanstack.com) 管理异步请求数据状态&缓存 🚀
 - **Swagger Api Codegen** Api 接口 ts 代码生成，可更好结合 react-query 使用，不写请求代码
-- [Zustand](https://github.com/pmndrs/zustand) 状态管理
+- [Zustand](https://github.com/pmndrs/zustand) 基于 hooks 的状态管理
 - [React Navigation](https://reactnavigation.org/) 支持 [Authentication flow（身份验证流程）](https://reactnavigation.org/docs/auth-flow)和主题
 - [React Native Gesture Handler](https://github.com/kmagiera/react-native-gesture-handler)
 - [NativeBase](https://github.com/GeekyAnts/nativebase/) UI 组件库
-- [React Native Vector Icons](https://github.com/oblador/react-native-vector-icons) Icons
+- [React Native Vector Icons](https://github.com/oblador/react-native-vector-icons)
 - [Jest](https://facebook.github.io/jest/)
 - [Eslint](http://eslint.org/) ([Airbnb config](https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb))
 
@@ -71,7 +71,7 @@
 
 ## TODO
 
-- [ ] 主题切换
+- [x] 主题切换
 - [ ] 一些常用组件
 - [ ] 组件测试用例
 - [ ] Swagger api 接口代码生成，改进成配置化，更新配置和执行配置命令就可以同步更新创建接口定义代码
