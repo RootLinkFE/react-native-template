@@ -1,21 +1,99 @@
-import { Box, Spinner } from 'native-base';
-import React from 'react';
-import { GetTopPlayList } from 'src/services/queries/music';
+import { Box, Spinner, Text, Button, ScrollView } from 'native-base';
+import React, { useCallback, useState } from 'react';
+import { useInfiniteQuery } from 'react-query';
+import { doGet } from 'src/services/http-client';
 import PlayListCard from './PlayListCard';
+import { throttle } from 'lodash';
+
+import { RefreshControl } from 'react-native';
 
 function PlayList() {
-  const { isLoading, isFetching, data = [] }: any = GetTopPlayList();
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const [before, setBefore] = useState();
+  const {
+    status,
+    data,
+    error,
+    isLoading,
+    isFetching,
+    isFetchingNextPage,
+    isFetchingPreviousPage,
+    fetchNextPage,
+    fetchPreviousPage,
+    refetch,
+    hasNextPage,
+    hasPreviousPage,
+  } = useInfiniteQuery(
+    ['playlists', before],
+    async () => {
+      const res = await doGet('/top/playlist/highquality', {
+        before,
+        limit: 5,
+      });
+      return res;
+    },
+    {
+      getPreviousPageParam: firstPage => firstPage.previousId ?? false,
+      getNextPageParam: lastPage => lastPage.nextId ?? false,
+    },
+  );
+
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true);
+    refetch();
+    setRefreshing(false);
+  }, [setRefreshing]);
+
+  const isCloseToBottom = useCallback(
+    ({ layoutMeasurement, contentOffset, contentSize }) => {
+      const paddingToBottom = 20;
+      return (
+        layoutMeasurement.height + contentOffset.y >=
+        contentSize.height - paddingToBottom
+      );
+    },
+    [],
+  );
 
   return (
-    <Box flex="1" justifyContent="center" alignItems="center">
-      {isLoading || isFetching ? (
-        <Spinner size="lg" style={{ marginTop: 18 }} />
-      ) : (
-        data?.map((item: any) => {
-          return <PlayListCard key={item.id} data={item} />;
-        })
-      )}
-    </Box>
+    <ScrollView
+      onScroll={({ nativeEvent }) => {
+        if (isCloseToBottom(nativeEvent)) {
+          console.log('滚动到底部');
+        }
+      }}
+      scrollEventThrottle={400}
+      refreshControl={
+        <RefreshControl
+          tintColor="#e70625"
+          colors={['#e70625']}
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+        />
+      }>
+      <Box flex="1" justifyContent="center" alignItems="center">
+        {isLoading || isFetching ? (
+          <Spinner size="lg" style={{ marginTop: 18 }} />
+        ) : (
+          data?.pages?.map((page, pageIndex) => {
+            return (
+              <React.Fragment key={pageIndex}>
+                {page.playlists?.map((item: any, itemIndex: number) => {
+                  if (
+                    pageIndex === data?.pages.length - 1 &&
+                    itemIndex === page.playlists.length - 1
+                  ) {
+                  }
+                  return <PlayListCard key={item.id} data={item} />;
+                })}
+              </React.Fragment>
+            );
+          })
+        )}
+        <Text>{data?.pages.length}</Text>
+      </Box>
+    </ScrollView>
   );
 }
 

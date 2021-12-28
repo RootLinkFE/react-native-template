@@ -5,10 +5,13 @@ import {
   AspectRatio,
   Image,
   Text,
+  View,
   Center,
   HStack,
   Stack,
 } from 'native-base';
+import { dateFormat } from '../../../utils/dateUtils';
+import NavigationService from 'src/navigation/NavigationService';
 
 function PlayListCard({ data }: { data: Record<string, any> }) {
   const coverImgUrl = useMemo(() => {
@@ -64,7 +67,12 @@ function PlayListCard({ data }: { data: Record<string, any> }) {
       </Box>
       <Stack p="4" space={3}>
         <Stack space={2}>
-          <Heading size="md" ml="-1">
+          <Heading
+            size="md"
+            ml="-1"
+            onPress={() => {
+              NavigationService.navigate('PlayListDetail', { id: data.id });
+            }}>
             {data?.name}
           </Heading>
           <Text
@@ -77,7 +85,8 @@ function PlayListCard({ data }: { data: Record<string, any> }) {
             }}
             fontWeight="500"
             ml="-0.5"
-            mt="-1">
+            mt="-1"
+            onPress={() => $toast('滚动到底部')}>
             播放次数：{data?.subscribedCount / 100} 万次
           </Text>
         </Stack>
@@ -90,7 +99,7 @@ function PlayListCard({ data }: { data: Record<string, any> }) {
                 color: 'warmGray.200',
               }}
               fontWeight="400">
-              {data?.updateTime}
+              {dateFormat(data?.updateTime)}
             </Text>
           </HStack>
         </HStack>

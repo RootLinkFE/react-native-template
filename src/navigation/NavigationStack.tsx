@@ -13,10 +13,10 @@ import { StatusBar } from 'react-native';
 import { useStore } from '../store';
 import HomeTabs from './HomeTabs';
 import Characters from 'src/screens/Characters';
+import PlayListDetail from 'src/screens/Home/PlayList/PlayListDetail';
 
 const Stack = createStackNavigator();
 const AuthStack = createStackNavigator();
-const LoggedInStack = createStackNavigator();
 
 interface IProps {
   theme: Theme;
@@ -53,6 +53,11 @@ const AuthNavigator = () => {
 
 const LoggedInNavigatorList: React.ReactNode[] = [
   <Stack.Screen key="Characters" name="Characters" component={Characters} />,
+  <Stack.Screen
+    key="PlayListDetail"
+    name="PlayListDetail"
+    component={PlayListDetail}
+  />,
 ];
 
 const App: React.FC<IProps> = (props: IProps) => {
@@ -74,8 +79,6 @@ const App: React.FC<IProps> = (props: IProps) => {
             name="登陆页"
             component={AuthNavigator}
             options={{
-              // When logging out, a pop animation feels intuitive
-              // You can remove this if you want the default 'push' animation
               animationTypeForReplace: isLoggedIn ? 'push' : 'pop',
               headerRight: () => <ThemeController />,
             }}

@@ -29,3 +29,5 @@ interface AjaxResponse<T = any> {
 }
 
 interface File {}
+
+declare var $toast: any;
