@@ -2,6 +2,7 @@ import { Box, Divider, VStack, Button } from 'native-base';
 import React from 'react';
 import { useStore } from 'src/store';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import NavigationService from 'src/navigation/NavigationService';
 
 const Mine: React.FC = () => {
   const setIsLoggedIn = useStore(state => state.setIsLoggedIn);
@@ -17,6 +18,13 @@ const Mine: React.FC = () => {
         </Box>
         <Box px="4">
           <Button
+            onPress={() => {
+              NavigationService.navigate('Characters');
+            }}>
+            用户详情
+          </Button>
+          <Button
+            mt="4"
             leftIcon={<Icon name="logout" color="white" />}
             onPress={onLogOut}>
             退出登陆

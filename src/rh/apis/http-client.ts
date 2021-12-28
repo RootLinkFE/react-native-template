@@ -111,11 +111,6 @@ export class HttpClient<SecurityDataType = unknown> {
     this.instance.interceptors.response.use(
       async (response: AxiosResponse<any>) => {
         let res: any = response.data;
-        // TODO(删掉): demo 接口专门mock写法
-        if (res.results) {
-          return res;
-        }
-
         if (res.code !== RES_SUCCESS_DEFAULT_CODE) {
           return this.errorHandler(res);
         }
@@ -125,7 +120,7 @@ export class HttpClient<SecurityDataType = unknown> {
           return res;
         }
 
-        return res.data;
+        return res.data || res;
       },
       error => {
         Toast.show({
@@ -134,7 +129,6 @@ export class HttpClient<SecurityDataType = unknown> {
           description: error.desc || error.message,
           duration: ERR_MESSAGE_SHOW_DURATION,
         });
-
         return Promise.reject(error);
       },
     );

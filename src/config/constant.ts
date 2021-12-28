@@ -7,12 +7,12 @@ export const baseURL = Config['BASE_URL'];
 export const USER_INFO_KEY = '_rh_userAuthInfo';
 export const TOKEN_KEY = '_rh_token';
 
-// 业务 code
+// 业务 code，根据自己业务后端规范情况修改
 export const REQ_RESEND_MAX_COUNT = 1;
 export const REQ_RESEND_COUNT_EXCEED_CODE = 4000001;
 export const REQ_RESEND_COUNT_EXCEED_MSG = '重发次数超出上限';
 export const REQ_OVERTIME_DURATION = 10 * 1000;
-export const RES_SUCCESS_DEFAULT_CODE = 2000; // 处理成功
+export const RES_SUCCESS_DEFAULT_CODE = 200; // 处理成功
 export const RES_NOT_FOUND_CODE = 3000; // 处理失败
 export const RES_UNAUTHORIZED_CODE = 4010; // token过期
 export const RES_PERMISSION_DENIED_CODE = 4100; // 权限不足
