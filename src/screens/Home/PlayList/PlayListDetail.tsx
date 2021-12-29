@@ -15,6 +15,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import AppBar from 'src/components/AppBar';
 import { GetPlayListDetail, GetSongDetail } from 'src/services/queries/music';
 import { map } from 'lodash';
+import { RefreshControl } from 'react-native';
 
 function PlayListDetail({ route }: { route: Record<string, any> }) {
   const { id } = route.params;
@@ -111,6 +112,9 @@ function PlayListDetail({ route }: { route: Record<string, any> }) {
         </Box>
       </HStack>
       <FlatList
+        refreshControl={
+          <RefreshControl refreshing={songFetching || songLoading} />
+        }
         p="4"
         data={songData?.songs || []}
         renderItem={renderItem}

@@ -27,7 +27,7 @@ function PlayList() {
     async () => {
       const res = await doGet('/top/playlist/highquality', {
         before,
-        limit: 5,
+        limit: 10,
       });
       return res;
     },
@@ -66,29 +66,25 @@ function PlayList() {
         <RefreshControl
           tintColor="#e70625"
           colors={['#e70625']}
-          refreshing={refreshing}
+          refreshing={refreshing || isLoading}
           onRefresh={onRefresh}
         />
       }>
       <Box flex="1" justifyContent="center" alignItems="center">
-        {isLoading || isFetching ? (
-          <Spinner size="lg" style={{ marginTop: 18 }} />
-        ) : (
-          data?.pages?.map((page, pageIndex) => {
-            return (
-              <React.Fragment key={pageIndex}>
-                {page.playlists?.map((item: any, itemIndex: number) => {
-                  if (
-                    pageIndex === data?.pages.length - 1 &&
-                    itemIndex === page.playlists.length - 1
-                  ) {
-                  }
-                  return <PlayListCard key={item.id} data={item} />;
-                })}
-              </React.Fragment>
-            );
-          })
-        )}
+        {data?.pages?.map((page, pageIndex) => {
+          return (
+            <React.Fragment key={pageIndex}>
+              {page.playlists?.map((item: any, itemIndex: number) => {
+                if (
+                  pageIndex === data?.pages.length - 1 &&
+                  itemIndex === page.playlists.length - 1
+                ) {
+                }
+                return <PlayListCard key={item.id} data={item} />;
+              })}
+            </React.Fragment>
+          );
+        })}
       </Box>
     </ScrollView>
   );

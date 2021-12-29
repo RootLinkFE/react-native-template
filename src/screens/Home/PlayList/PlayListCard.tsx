@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import {
   Box,
   Heading,
@@ -12,11 +12,16 @@ import {
 } from 'native-base';
 import { dateFormat } from '../../../utils/dateUtils';
 import NavigationService from 'src/navigation/NavigationService';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 function PlayListCard({ data }: { data: Record<string, any> }) {
   const coverImgUrl = useMemo(() => {
     return data?.coverImgUrl.replace('http:', 'https:');
   }, [data?.coverImgUrl]);
+
+  const goDetail = useCallback(() => {
+    NavigationService.navigate('PlayListDetail', { id: data.id });
+  }, [data]);
 
   return (
     <Box
@@ -38,16 +43,21 @@ function PlayListCard({ data }: { data: Record<string, any> }) {
         backgroundColor: 'gray.50',
       }}>
       <Box>
-        <AspectRatio w="100%" ratio={16 / 9}>
-          {coverImgUrl && (
-            <Image
-              source={{
-                uri: coverImgUrl,
-              }}
-              alt="image"
-            />
-          )}
-        </AspectRatio>
+        <TouchableOpacity
+          onPress={() => {
+            goDetail();
+          }}>
+          <AspectRatio w="100%" ratio={16 / 9}>
+            {coverImgUrl && (
+              <Image
+                source={{
+                  uri: coverImgUrl,
+                }}
+                alt="image"
+              />
+            )}
+          </AspectRatio>
+        </TouchableOpacity>
         <Center
           bg="violet.500"
           _dark={{
@@ -71,7 +81,7 @@ function PlayListCard({ data }: { data: Record<string, any> }) {
             size="md"
             ml="-1"
             onPress={() => {
-              NavigationService.navigate('PlayListDetail', { id: data.id });
+              goDetail();
             }}>
             {data?.name}
           </Heading>

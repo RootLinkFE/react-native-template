@@ -8,7 +8,7 @@ import { doGet } from '../http-client';
 export const GetTopPlayList = () => {
   // const userId = useStore(state => state.userId);
   return useQuery(['TopPlayList'], async () => {
-    const res = await doGet('/top/playlist/highquality', { limit: 3 });
+    const res = await doGet('/top/playlist/highquality', { limit: 5 });
     return res.playlists;
   });
 };
