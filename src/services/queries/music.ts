@@ -19,8 +19,31 @@ export const GetTopPlayList = () => {
  * @returns
  */
 export const GetPlayListDetail = (id: string) => {
-  return useQuery(['PlayListDetail', id], async () => {
-    const res = await doGet('/playlist/detail', { id });
-    return res;
-  });
+  return useQuery(
+    ['PlayListDetail', id],
+    async () => {
+      const res = await doGet('/playlist/detail', { id });
+      return res;
+    },
+    {
+      enabled: !!id,
+    },
+  );
+};
+/**
+ * 批量获取歌曲详情
+ * /song/detail
+ * @returns
+ */
+export const GetSongDetail = (ids: string) => {
+  return useQuery(
+    ['PlayListDetail', ids],
+    async () => {
+      const res = await doGet('/song/detail', { ids });
+      return res;
+    },
+    {
+      enabled: !!ids,
+    },
+  );
 };

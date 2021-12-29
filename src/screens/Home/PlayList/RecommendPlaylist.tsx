@@ -1,11 +1,9 @@
-import { Box, Spinner, Text, Button, ScrollView } from 'native-base';
+import { Box, ScrollView, Spinner } from 'native-base';
 import React, { useCallback, useState } from 'react';
+import { RefreshControl } from 'react-native';
 import { useInfiniteQuery } from 'react-query';
 import { doGet } from 'src/services/http-client';
 import PlayListCard from './PlayListCard';
-import { throttle } from 'lodash';
-
-import { RefreshControl } from 'react-native';
 
 function PlayList() {
   const [refreshing, setRefreshing] = React.useState(false);
@@ -91,7 +89,6 @@ function PlayList() {
             );
           })
         )}
-        <Text>{data?.pages.length}</Text>
       </Box>
     </ScrollView>
   );
