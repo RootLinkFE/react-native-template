@@ -12,7 +12,7 @@ const Login: React.FC = () => {
   const onLogin = () => {
     setIsLoggedIn(true);
   };
-  const onForgot = () => NavigationService.navigate('ForgotPassword');
+  const onForgot = () => NavigationService.navigate('忘记密码');
   return (
     <View style={styles.container}>
       <View style={styles.container}>
@@ -20,10 +20,10 @@ const Login: React.FC = () => {
         <Button
           leftIcon={<Icon name="login" color="white" />}
           onPress={onLogin}>
-          Login
+          登录
         </Button>
         <Button style={styles.forgot} onPress={onForgot}>
-          Forgot Password
+          忘记密码
         </Button>
       </View>
     </View>
