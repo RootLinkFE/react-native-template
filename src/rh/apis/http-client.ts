@@ -120,12 +120,7 @@ export class HttpClient<SecurityDataType = unknown> {
           return this.errorHandler(res);
         }
 
-        // 列表分页
-        if (res.number && res.size) {
-          return res;
-        }
-
-        return res.data;
+        return res;
       },
       error => {
         Toast.show({
@@ -209,14 +204,15 @@ export class HttpClient<SecurityDataType = unknown> {
     format,
     body,
     ...params
-  }: FullRequestParams): Promise<any> => {
+  }: FullRequestParams): Promise<T> => {
     // 校验token
     const token = await getToken();
     const { accessToken = '', refreshToken, tokenExpireTime } = token;
 
     if (!isMockMode) {
       if (isEmpty(token)) {
-        return this.logout();
+        this.logout();
+        return Promise.reject();
       }
       // 判断当前日期是否晚于tokenExpireTime，如果是表示token已经过期，需要用refreshToken去换一个新的token
       if (dayjs().isAfter(dayjs(tokenExpireTime))) {
