@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import create, { GetState, SetState, StoreApi } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { createLoginSlice, ILoginSlice } from './createLoginSlice';
