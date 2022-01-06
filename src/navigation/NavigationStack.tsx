@@ -1,19 +1,15 @@
-import * as React from 'react';
 import { NavigationContainer, Theme } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-
-import { navigationRef } from './NavigationService';
-
-import Login from 'src/screens/Login';
-import Home from 'src/screens/Home';
-import ForgotPassword from 'src/screens/ForgotPassword';
-
-import ThemeController from '../components/ThemeController';
+import * as React from 'react';
 import { StatusBar } from 'react-native';
+import Characters from 'src/screens/Characters';
+import ForgotPassword from 'src/screens/ForgotPassword';
+import PlayListDetail from 'src/screens/Home/PlayList/PlayListDetail';
+import Login from 'src/screens/Login';
+import ThemeController from '../components/ThemeController';
 import { useStore } from '../store';
 import HomeTabs from './HomeTabs';
-import Characters from 'src/screens/Characters';
-import PlayListDetail from 'src/screens/Home/PlayList/PlayListDetail';
+import { navigationRef } from './NavigationService';
 
 const Stack = createStackNavigator();
 const AuthStack = createStackNavigator();

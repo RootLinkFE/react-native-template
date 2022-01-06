@@ -10,10 +10,4 @@ const Home: any = ({}) => {
   );
 };
 
-Home.options = {
-  topBar: {
-    visible: false,
-  },
-};
-
 export default Home;

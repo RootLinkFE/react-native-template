@@ -1,9 +1,9 @@
-import NavigationService from 'src/navigation/NavigationService';
-import { useStore } from 'src/store';
-import { Button, Text } from 'native-base';
+import { Button } from 'native-base';
 import React from 'react';
 import { View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import NavigationService from 'src/navigation/NavigationService';
+import { useStore } from 'src/store';
 import styles from './styles';
 
 const Login: React.FC = () => {
@@ -12,11 +12,12 @@ const Login: React.FC = () => {
   const onLogin = () => {
     setIsLoggedIn(true);
   };
+
   const onForgot = () => NavigationService.navigate('忘记密码');
+
   return (
     <View style={styles.container}>
       <View style={styles.container}>
-        <Text style={styles.login}>Login Status </Text>
         <Button
           leftIcon={<Icon name="login" color="white" />}
           onPress={onLogin}>

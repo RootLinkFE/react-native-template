@@ -8,7 +8,7 @@ import { QueryClientProvider } from 'react-query';
 import theme, {
   NavigationDarkTheme,
   NavigationDefaultTheme,
-} from 'src/config/theme-config';
+} from 'src/config/theme';
 import Navigator from 'src/navigation';
 import colorModeManager from './config/colorModeManager';
 import { RNQueryClient } from './services/query-client';
@@ -17,24 +17,22 @@ import { useStore } from './store';
 const EntryPoint: React.FC = () => {
   const isDarkMode = useStore(state => state.isDarkMode);
 
-  const navThemeColors = useMemo(() => {
-    const themeColor = isDarkMode
-      ? NavigationDarkTheme.colors
-      : NavigationDefaultTheme.colors;
-    return themeColor;
+  const navTheme = useMemo(() => {
+    return {
+      dark: isDarkMode,
+      colors: {
+        ...(isDarkMode
+          ? NavigationDarkTheme.colors
+          : NavigationDefaultTheme.colors),
+        primary: theme.colors.primary[500],
+      },
+    };
   }, [isDarkMode]);
 
   return (
     <NativeBaseProvider theme={theme} colorModeManager={colorModeManager}>
       <QueryClientProvider client={RNQueryClient}>
-        <Navigator
-          theme={{
-            dark: isDarkMode,
-            colors: {
-              ...navThemeColors,
-            },
-          }}
-        />
+        <Navigator theme={navTheme} />
       </QueryClientProvider>
     </NativeBaseProvider>
   );
