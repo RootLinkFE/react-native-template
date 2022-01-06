@@ -1,4 +1,4 @@
-import { isNull, isUndefined, omitBy } from 'lodash';
+import { omitBy } from 'lodash';
 
 /**
  * 删除对象中为falsy的键值对
@@ -10,6 +10,6 @@ export function removeEmpty<T extends Record<string, any>>(obj: T): T {
     {
       ...obj,
     },
-    item => isNull(item) || isUndefined(item) || item === '',
+    item => [null, undefined, ''].includes(item),
   ) as T;
 }
