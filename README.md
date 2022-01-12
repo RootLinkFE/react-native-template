@@ -18,6 +18,7 @@
 - [React Native Vector Icons](https://github.com/oblador/react-native-vector-icons)
 - [Jest](https://facebook.github.io/jest/)
 - [Eslint](http://eslint.org/) ([Airbnb config](https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb))
+- [Flipper](https://fbflipper.com/) Facebook 开源的 debugger 工具，功能强大。官网下载安装包安装后即可使用。
 
 ## How this looks
 
