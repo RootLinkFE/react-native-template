@@ -12,15 +12,6 @@ type UserInfo = {
   profilePicture?: string;
 };
 
-interface Token {
-  accessToken?: string;
-  refreshToken?: string;
-  tokenExpireTime?: string;
-  tokenExpiresIn?: number;
-  userId?: number;
-  ispassword?: boolean;
-}
-
 interface AjaxResponse<T = any> {
   code: number;
   success: boolean;

@@ -32,8 +32,8 @@ function PlayList() {
       return res;
     },
     {
-      getPreviousPageParam: firstPage => firstPage.previousId ?? false,
-      getNextPageParam: lastPage => lastPage.nextId ?? false,
+      getPreviousPageParam: firstPage => firstPage?.previousId ?? false,
+      getNextPageParam: lastPage => lastPage?.nextId ?? false,
     },
   );
 
@@ -74,7 +74,7 @@ function PlayList() {
         {data?.pages?.map((page, pageIndex) => {
           return (
             <React.Fragment key={pageIndex}>
-              {page.playlists?.map((item: any, itemIndex: number) => {
+              {page?.playlists?.map((item: any, itemIndex: number) => {
                 if (
                   pageIndex === data?.pages.length - 1 &&
                   itemIndex === page.playlists.length - 1

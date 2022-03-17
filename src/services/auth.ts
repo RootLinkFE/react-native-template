@@ -2,6 +2,14 @@ import { TOKEN_KEY, USER_INFO_KEY } from 'src/config/constant';
 import { RhStorage } from '../lib';
 import { removeEmpty } from '../utils/objectUtils';
 
+export interface Token {
+  accessToken?: string;
+  refreshToken?: string;
+  tokenExpireTime?: string;
+  tokenExpiresIn?: number;
+  userId?: number;
+  ispassword?: boolean;
+}
 /**
  * 退出登录
  * @returns
@@ -49,5 +57,5 @@ export const getToken: () => Promise<Token> = async () => {
   if (result) {
     return JSON.parse(result);
   }
-  return {};
+  return {} as Token;
 };

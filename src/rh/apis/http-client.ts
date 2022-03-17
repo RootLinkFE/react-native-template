@@ -5,20 +5,7 @@ import type {
   ResponseType,
 } from 'axios';
 import axios from 'axios';
-import { isEmpty } from 'lodash';
-import { Toast } from 'native-base';
-import dayjs from 'dayjs';
-import { RhStorage } from 'src/lib/index';
-import { getToken, saveToken, signOut } from 'src/services/auth';
-import {
-  baseURL,
-  ERR_MESSAGE_SHOW_DURATION,
-  isMockMode,
-  RES_PERMISSION_DENIED_CODE,
-  RES_SUCCESS_DEFAULT_CODE,
-  RES_UNAUTHORIZED_CODE,
-  TOKEN_KEY,
-} from '../../config/constant';
+import { RNHttpAdapterImp } from './adapter/rn-http-adapter-impl';
 
 export type QueryParamsType = Record<string | number, any>;
 
@@ -58,13 +45,13 @@ export enum ContentType {
   UrlEncoded = 'application/x-www-form-urlencoded',
 }
 
-const goLogin = () => {};
-export class HttpClient<SecurityDataType = unknown> {
+export class HttpClient<SecurityDataType = unknown> extends RNHttpAdapterImp {
   private instance: AxiosInstance;
   private securityData: SecurityDataType | null = null;
   private securityWorker?: ApiConfig<SecurityDataType>['securityWorker'];
   private secure?: boolean;
   private format?: ResponseType;
+
   config: AxiosRequestConfig = {};
 
   private cancellationToken = axios.CancelToken.source();
@@ -75,9 +62,11 @@ export class HttpClient<SecurityDataType = unknown> {
     format,
     ...axiosConfig
   }: ApiConfig<SecurityDataType> = {}) {
+    super();
+
     this.instance = axios.create({
+      baseURL: this.baseURL,
       ...axiosConfig,
-      baseURL,
     });
 
     this.secure = secure;
@@ -86,54 +75,7 @@ export class HttpClient<SecurityDataType = unknown> {
 
     this.cancellationToken = axios.CancelToken.source();
     this.config.cancelToken = this.cancellationToken.token;
-    this.interceptRequestConfig();
-  }
-  /**
-   * 请求和响应拦截
-   */
-  private interceptRequestConfig() {
-    this.instance.interceptors.request.use(
-      async (config: any) => {
-        const token = await RhStorage.getItem(TOKEN_KEY);
-        if (token) {
-          // ['X-Access-Token'] is a custom headers key
-          config.headers.token = token;
-        }
-        config.headers['Content-Type'] = 'application/json';
-        return config;
-      },
-      error => {
-        return Promise.reject(error);
-      },
-    );
-
-    // response interceptor
-    this.instance.interceptors.response.use(
-      async (response: AxiosResponse<any>) => {
-        let res: any = response.data;
-        if (res.code !== RES_SUCCESS_DEFAULT_CODE) {
-          return this.errorHandler(res);
-        }
-
-        return res;
-      },
-      error => {
-        Toast.show({
-          title: '提示',
-          status: 'error',
-          description: error.desc || error.message,
-          duration: ERR_MESSAGE_SHOW_DURATION,
-        });
-        return Promise.reject(error);
-      },
-    );
-  }
-
-  private logout() {
-    signOut();
-    setTimeout(() => {
-      goLogin();
-    }, 1500);
+    this.interceptRequestConfig(this.instance);
   }
 
   private mergeRequestParams(
@@ -150,30 +92,6 @@ export class HttpClient<SecurityDataType = unknown> {
         ...((params2 && params2.headers) || {}),
       },
     };
-  }
-
-  private errorHandler(res: any) {
-    // 如果接口返回不是成功编码
-    if (res.code === RES_UNAUTHORIZED_CODE) {
-      Toast.show({
-        title: '提示',
-        status: 'info',
-        description: '您已经登出，您可以取消以停留在此页面，或再次登录',
-        duration: ERR_MESSAGE_SHOW_DURATION,
-      });
-      this.logout();
-    } else if (res.code === RES_PERMISSION_DENIED_CODE) {
-      // token不存在,请重新登录账户
-      this.logout();
-    }
-    Toast.show({
-      title: '提示',
-      status: 'error',
-      description: res.desc || res.message,
-      duration: ERR_MESSAGE_SHOW_DURATION,
-    });
-
-    return Promise.reject(res.desc || res.message || 'Error');
   }
 
   public cancelRequests() {
@@ -199,23 +117,10 @@ export class HttpClient<SecurityDataType = unknown> {
     body,
     ...params
   }: FullRequestParams): Promise<T> => {
-    // 校验token
-    const token = await getToken();
-    const { accessToken = '', refreshToken, tokenExpireTime } = token;
-
-    if (!isMockMode) {
-      if (isEmpty(token)) {
-        this.logout();
-        return Promise.reject();
-      }
-      // 判断当前日期是否晚于tokenExpireTime，如果是表示token已经过期，需要用refreshToken去换一个新的token
-      if (dayjs().isAfter(dayjs(tokenExpireTime))) {
-        const result = await fetch(
-          `${baseURL}/auth/token/refresh?refreshToken=${refreshToken}`,
-        ).then(response => response.json());
-        const { data } = result;
-        saveToken(data);
-      }
+    // 校验 token
+    const accessToken = await this.refreshToken();
+    if (!accessToken) {
+      return Promise.reject();
     }
 
     const secureParams =
@@ -233,7 +138,6 @@ export class HttpClient<SecurityDataType = unknown> {
           ? { 'Content-Type': type }
           : {}),
         ...(requestParams.headers || {}),
-        token: accessToken,
       },
       params: query,
       responseType: responseFormat,
