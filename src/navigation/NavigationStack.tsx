@@ -2,7 +2,8 @@ import { NavigationContainer, Theme } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 import { StatusBar } from 'react-native';
-import Characters from 'src/screens/Characters';
+import Characters from 'src/screens/Demos/Characters';
+import MyWeb from 'src/screens/Demos/Webview/MyWeb';
 import ForgotPassword from 'src/screens/ForgotPassword';
 import PlayListDetail from 'src/screens/Home/PlayList/PlayListDetail';
 import Login from 'src/screens/Login';
@@ -49,6 +50,7 @@ const AuthNavigator = () => {
 
 const LoggedInNavigatorList: React.ReactNode[] = [
   <Stack.Screen key="Characters" name="Characters" component={Characters} />,
+  <Stack.Screen key="MyWeb" name="MyWeb" component={MyWeb} />,
   <Stack.Screen
     key="PlayListDetail"
     name="PlayListDetail"

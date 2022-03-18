@@ -25,6 +25,13 @@ const Mine: React.FC = () => {
           </Button>
           <Button
             mt="4"
+            onPress={() => {
+              NavigationService.navigate('MyWeb');
+            }}>
+            WebView 测试
+          </Button>
+          <Button
+            mt="4"
             leftIcon={<Icon name="logout" color="white" />}
             onPress={onLogOut}>
             退出登陆
